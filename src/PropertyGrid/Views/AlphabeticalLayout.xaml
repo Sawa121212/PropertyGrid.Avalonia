@@ -1,0 +1,22 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:design="clr-namespace:PropertyGrid.Design">
+
+    <Style Selector="design|AlphabeticalLayout">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignCardBackground}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <design:PropertyItemsLayout Grid.IsSharedSizeScope="True"
+                                                    Items="{Binding Properties}"
+                                                    Background="{Binding ItemsBackground}"
+                                                    VerticalAlignment="Stretch" />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</Styles>

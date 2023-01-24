@@ -1,0 +1,73 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:propertyGrid="clr-namespace:PropertyGrid"
+        xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
+        xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+        xmlns:collectionControl="clr-namespace:PropertyGrid.CollectionControl"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="600" Height="450"
+        WindowStartupLocation="CenterOwner"
+        x:Name="CollectionControlView"
+        x:Class="PropertyGrid.CollectionControl.CollectionControlView"
+        Title="Редактирование коллекции">
+
+    <Window.DataContext>
+        <collectionControl:CollectionControlViewModel />
+    </Window.DataContext>
+
+    <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="*,Auto" Margin="3, 0">
+
+        <!-- Элементы -->
+        <controls:Card Grid.Row="0" Grid.Column="0">
+            <ListBox
+                x:Name="ListBox"
+                Items="{Binding Collection}"
+                SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}"
+                SelectedItem="{Binding SelectedItem}"
+                SelectionMode="Single" Margin="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                            <TextBlock Text="{Binding }" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </controls:Card>
+
+        <!-- Кнопки управления элементами -->
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+            <Button Content="{avalonia:MaterialIconExt MenuUpOutline}" Height="30" Width="30" Margin="3"
+                    ToolTip.Tip="Переместить элемент на позицию выше"
+                    Command="{Binding UpCommand}" />
+            <Button Content="{avalonia:MaterialIconExt MenuDownOutline}" Height="30" Width="30" Margin="3"
+                    ToolTip.Tip="Переместить элемент на позицию ниже"
+                    Command="{Binding DownCommand}" />
+            <Button Content="{avalonia:MaterialIconExt DeleteOutline}" Height="30" Width="30" Margin="3"
+                    ToolTip.Tip="Удалить выбранный элемент"
+                    Command="{Binding DeleteCommand}" />
+        </StackPanel>
+
+        <!-- PropertyGrid, который занимается отображением SelectedObject -->
+        <controls:Card Grid.Row="0" Grid.Column="2">
+            <Grid>
+                <propertyGrid:PropertyGrid SelectedObject="{Binding SelectedItem, Mode=OneWay}"
+                                           PropertyDisplayMode="All"
+                                           ShowAttachedProperties="True"
+                                           PropertyFilterIsVisible="True"
+                                           ShowReadOnlyProperties="True" />
+            </Grid>
+        </controls:Card>
+
+        <!-- Кнопки "Ок" "Отмена" "Применить"-->
+        <StackPanel Grid.Row="1" Grid.Column="2"
+                    Orientation="Horizontal" HorizontalAlignment="Right" Spacing="3"
+                    Margin="0,3">
+            <Button Content="Ок" Width="100" Height="30"
+                    Command="{Binding OkCommand}" />
+            <Button Content="Отмена" Width="100" Height="30"
+                    Command="{Binding CancelCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>

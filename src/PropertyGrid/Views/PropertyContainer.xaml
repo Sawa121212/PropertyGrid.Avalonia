@@ -1,0 +1,64 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:PropertyGrid.Converters"
+    xmlns:design="clr-namespace:PropertyGrid.Design">
+    <Styles.Resources>
+        <converters:GridEntryToIsVisibleConverter x:Key="GridEntryToIsVisibleConverter" />
+        <converters:MultiBooleanToIsVisibleConverter x:Key="multiBooleanToVisibilityConverter" />
+    </Styles.Resources>
+
+    <!-- Базовый Контейнер свойств -->
+    <Style Selector="design|PropertyContainer">
+        <!--<Setter Property="IsVisible" Value="{Binding .,Converter={StaticResource GridEntryToIsVisibleConverter}}"/>-->
+        <Setter Property="IsVisible">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource multiBooleanToVisibilityConverter}" Mode="OneWay">
+                    <Binding Path="IsBrowsable" FallbackValue="True" />
+                    <Binding Path="MatchesFilter" FallbackValue="True" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Margin="20, 0,3,0" 
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <!-- <ColumnDefinition Width="*" SharedSizeGroup="PropertyNameSizeGroup" /> -->
+                            <!-- <ColumnDefinition Width="*" /> -->
+                            <ColumnDefinition Width="150"/>
+                            <!-- <ColumnDefinition -->
+                            <!--     Width="{Binding NameColumnWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type pg1:PropertyGrid}}}" /> -->
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <design:PropertyNameTextBlock
+                            Grid.Column="0" Margin="0,0,5,0"
+                            Text="{Binding DisplayName, Mode=OneTime}" />
+
+                        <design:PropertyEditorContentPresenter Grid.Column="1" VerticalAlignment="Center"
+                                                               HorizontalAlignment="Stretch"
+                                                               DataContext="{Binding}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Design.PreviewWith>
+        <Border Padding="5">
+            <Grid Margin="20, 0,3,0" Width="200">
+                <Grid.ColumnDefinitions>
+                    <!-- <ColumnDefinition Width="*" SharedSizeGroup="PropertyNameSizeGroup" /> -->
+                    <ColumnDefinition Width="0.5*" SharedSizeGroup="PropertyNameSizeGroup" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="HeaderHeaderHeader"/>
+                <TextBox Grid.Column="1" Text="Header"/>
+            </Grid>
+        </Border>
+    </Design.PreviewWith>
+</Styles>

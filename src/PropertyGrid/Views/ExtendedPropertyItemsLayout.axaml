@@ -1,0 +1,39 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:design="clr-namespace:PropertyGrid.Design">
+
+    <Style Selector="design|ExtendedPropertyItemsLayout">
+        <Setter Property="ItemTemplate">
+            <DataTemplate>
+                <design:ExtendedPropertyContainer Margin="1" DataContext="{Binding}" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        Items="{TemplateBinding Items}"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                                        ItemTemplate="{TemplateBinding ItemTemplate}" />
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Что это -->
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <design:ExtendedPropertyItemsLayout>
+                <TextBlock>1</TextBlock>
+                <TextBlock>2</TextBlock>
+            </design:ExtendedPropertyItemsLayout>
+        </Border>
+    </Design.PreviewWith>
+</Styles>

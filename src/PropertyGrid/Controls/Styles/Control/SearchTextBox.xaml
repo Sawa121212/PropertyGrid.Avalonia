@@ -1,0 +1,119 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:controls="clr-namespace:PropertyGrid.Controls"
+        xmlns:propertyGrid="clr-namespace:PropertyGrid">
+
+    <Style Selector="controls|SearchTextBox">
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignTextBoxBorder}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource MaterialDesignSelection}" />
+        <Setter Property="SelectionForegroundBrush" Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Watermark" Value="Поиск" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="FontFamily"
+                Value="avares://Material.Styles/Fonts/Roboto#Roboto,
+            Noto Sans TC, Noto Sans SC, Noto Sans JP, Noto Sans KR, Noto Sans, Arial" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{DynamicResource PrimaryHueMidForegroundBrush}"
+                            CornerRadius="32"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <DockPanel Margin="{TemplateBinding Padding}">
+                            <!--HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"-->
+
+                            <Grid ColumnDefinitions="20,*">
+                                <Border Grid.Column="0" Height="{Binding $parent[TextBox].Height}"
+                                        Width="{Binding $self.Bounds.Height}">
+                                    <avalonia:MaterialIcon HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                           Kind="Magnify" Width="20" Height="20" />
+                                </Border>
+
+                                <TextBlock Grid.Column="1" Name="floatingWatermark"
+                                           Classes="Subtitle2"
+                                           Background="{TemplateBinding Background}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Text="{TemplateBinding Watermark}"
+                                           DockPanel.Dock="Top">
+                                    <TextBlock.IsVisible>
+                                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                            <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                                     Path="UseFloatingWatermark" />
+                                            <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                                     Path="Text"
+                                                     Converter="{x:Static StringConverters.IsNotNullOrEmpty}" />
+                                        </MultiBinding>
+                                    </TextBlock.IsVisible>
+                                </TextBlock>
+                            </Grid>
+
+
+                            <DataValidationErrors>
+                                <ScrollViewer
+                                    HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                    VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+
+                                    <Panel>
+                                        <TextBlock Name="watermark"
+                                                   Margin="0 2 3 0"
+                                                   Opacity="0.63"
+                                                   Foreground="{TemplateBinding Foreground}"
+                                                   Text="{TemplateBinding Watermark}"
+                                                   IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+                                        <!-- установите только передний план, а не фон, 
+                                        иначе текст исчезнет при переключении светлой/темной темы -->
+                                        <TextPresenter Name="PART_TextPresenter"
+                                                       Text="{TemplateBinding Text, Mode=TwoWay}"
+                                                       CaretIndex="{TemplateBinding CaretIndex}"
+                                                       SelectionStart="{TemplateBinding SelectionStart}"
+                                                       SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                       TextAlignment="{TemplateBinding TextAlignment}"
+                                                       TextWrapping="{TemplateBinding TextWrapping}"
+                                                       PasswordChar="{TemplateBinding PasswordChar}"
+                                                       SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                       SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                       CaretBrush="{TemplateBinding CaretBrush}" />
+                                    </Panel>
+                                </ScrollViewer>
+                            </DataValidationErrors>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|SearchTextBox:pointerover /template/ Border#border">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+    </Style>
+    <Style Selector="controls|SearchTextBox:focus /template/ Border#border">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+    </Style>
+    <Style Selector="controls|SearchTextBox:error /template/ Border#border">
+        <Setter Property="BorderBrush" Value="{DynamicResource ValidationErrorBrush}" />
+    </Style>
+    <Style Selector="controls|SearchTextBox /template/ DockPanel">
+        <Setter Property="Cursor" Value="IBeam" />
+    </Style>
+    <Style Selector="controls|SearchTextBox:disabled /template/ Border#border">
+        <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+    </Style>
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <propertyGrid:PropertyGrid SelectedObject="{StaticResource Test}" />
+            <!-- <StackPanel Spacing="5"> -->
+            <!--     <controls:SearchTextBox /> -->
+            <!--     <controls:SearchTextBox /> -->
+            <!-- </StackPanel> -->
+        </Border>
+    </Design.PreviewWith>
+</Styles>

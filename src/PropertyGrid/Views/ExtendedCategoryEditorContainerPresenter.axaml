@@ -1,0 +1,22 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:design="clr-namespace:PropertyGrid.Design">
+
+    <Style Selector="design|ExtendedCategoryEditorContainerPresenter">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel>
+                    <ContentControl Template="{Binding Editor.InlineTemplate}" />
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <design:ExtendedCategoryEditorContainerPresenter>
+                <TextBlock Text="123" />
+            </design:ExtendedCategoryEditorContainerPresenter>
+        </Border>
+    </Design.PreviewWith>
+</Styles>

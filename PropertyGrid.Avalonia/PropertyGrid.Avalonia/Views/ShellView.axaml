@@ -1,0 +1,32 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:propertyGrid="clr-namespace:PropertyGrid;assembly=PropertyGrid"
+        xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+        xmlns:views="clr-namespace:PropertyGrid.Avalonia.Views"
+        x:Class="PropertyGrid.Avalonia.Views.ShellView"
+        WindowStartupLocation="CenterScreen"
+        Title="{Binding Title}" Height="550" Width="800">
+
+    <Window.DataContext>
+        <views:ShellViewModel />
+    </Window.DataContext>
+
+    <Grid ColumnDefinitions="Auto,Auto,*">
+        <Grid Grid.Column="0" Margin="3">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,5">
+                <Button Content="Send new item"
+                        Command="{Binding SendNewItemCommand}" />
+            </StackPanel>
+        </Grid>
+        <GridSplitter Grid.Column="1" Width="5" Height="150" Margin="3"/>
+        <Grid Grid.Column="2" Margin="3">
+            <controls:Card>
+                <propertyGrid:PropertyGrid SelectedObject="{Binding SelectedItem, Mode=OneWay}"
+                                           PropertyDisplayMode="All"
+                                           ShowAttachedProperties="True"
+                                           PropertyFilterIsVisible="True"
+                                           ShowReadOnlyProperties="True" />
+            </controls:Card>
+        </Grid>
+    </Grid>
+</Window>

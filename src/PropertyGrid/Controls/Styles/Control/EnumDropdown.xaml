@@ -1,0 +1,159 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+    xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
+    xmlns:controls1="clr-namespace:PropertyGrid.Controls"
+    xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles">
+    
+    <!--clone of the combobox template-->
+    <Style Selector="controls1|EnumDropdown">
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignTextBoxBorder }" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FontFamily" Value="avares://Material.Styles/Fonts/Roboto#Roboto" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel>
+                    <Grid RowDefinitions="*, Auto">
+                        <Grid Name="PART_RootBorder"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              Background="Transparent"
+                              Margin="0,8,0,3"
+                              ClipToBounds="False">
+                            <Border Name="PART_Border" CornerRadius="0"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    BorderBrush="{TemplateBinding BorderBrush}">
+                                <Border.Clip>
+                                    <MultiBinding Converter="{StaticResource RectangleHollowGeometry}">
+                                        <Binding ElementName="PART_Border" Path="Bounds" />
+                                        <!--<Binding ElementName="watermarkRoot" Path="Bounds" />
+                                        <Binding ElementName="watermarkRoot" Path="TransformedBounds" />-->
+                                    </MultiBinding>
+                                </Border.Clip>
+                            </Border>
+
+                            <Grid ColumnDefinitions="*,Auto">
+                                <ContentPresenter Name="contentPresenter"
+                                                  BorderThickness="0" BorderBrush="Transparent"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding ItemTemplate}"
+                                                  Padding="10,7" />
+                                <Border Name="splitBorder"
+                                        Grid.Column="1"
+                                        Margin="5"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0">
+                                    <Path Name="arrow"
+                                          Width="8" Height="8"
+                                          Stretch="Uniform"
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Center"
+                                          Data="M7,10L12,15L17,10H7Z"
+                                          Fill="{DynamicResource MaterialDesignTextBoxBorder}"
+                                          Margin="0,0,0,-3" />
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <!-- Список элементов -->
+                    <Popup Name="PART_Popup"
+                           IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                           MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                           VerticalOffset="0"
+                           Margin="0"
+                           WindowManagerAddShadowHint="False"
+                           PlacementTarget="{Binding ElementName=templateRoot}"
+                           IsLightDismissEnabled="True"
+                           UseLayoutRounding="True"
+                           ClipToBounds="False">
+                        <controls:Card Margin="4,0,4,4"
+                                     CornerRadius="8"
+                                     Padding="0">
+                            <ScrollViewer Background="{Binding Background, ElementName=PART_Popup}"
+                                          MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                          MinHeight="1">
+                                <ItemsPresenter Name="PART_ItemsPresenter"
+                                                Items="{TemplateBinding Items}"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+                            </ScrollViewer>
+                        </controls:Card>
+                    </Popup>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls1|EnumDropdown /template/ Grid#PART_RootBorder">
+        <Setter Property="MinHeight" Value="24" />
+    </Style>
+
+    <Style Selector="controls1|EnumDropdown">
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <!-- Feedbacks -->
+    <Style Selector="controls1|EnumDropdown:disabled /template/ Border#PART_RootBorder">
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+
+    <Style Selector="controls1|EnumDropdown[IsEnabled=False]">
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+
+    <Style Selector="controls1|EnumDropdown:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueLightBrush}" />
+    </Style>
+
+    <Style Selector="controls1|EnumDropdown:focus-within">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+    </Style>
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Spacing="5">
+                <controls1:EnumDropdown IsEnabled="False">
+                    <StackPanel>
+                        <TextBlock Text="1" />
+                        <TextBlock Text="2" />
+                        <TextBlock Text="3" />
+                    </StackPanel>
+                </controls1:EnumDropdown>
+
+                <controls1:EnumDropdown>
+                    <StackPanel>
+                        <TextBlock Text="1" />
+                        <TextBlock Text="2" />
+                        <TextBlock Text="3" />
+                    </StackPanel>
+                </controls1:EnumDropdown>
+
+
+                <controls1:EnumDropdown assists:ComboBoxAssist.Label="Outline / Label">
+                    <StackPanel>
+                        <TextBlock Text="1" />
+                        <TextBlock Text="2" />
+                        <TextBlock Text="3" />
+                    </StackPanel>
+                </controls1:EnumDropdown>
+
+                <controls1:EnumDropdown assists:ComboBoxAssist.Label="Outline / Label" SelectedIndex="2">
+                    <StackPanel>
+                        <TextBlock Text="1" />
+                        <TextBlock Text="2" />
+                        <TextBlock Text="3" />
+                    </StackPanel>
+                </controls1:EnumDropdown>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+</Styles>

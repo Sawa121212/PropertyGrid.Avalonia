@@ -1,0 +1,79 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:design="clr-namespace:PropertyGrid.Design">
+
+    <!-- TextBlock у элемента -->
+    <Style Selector="design|PropertyNameTextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="IsEnabled" Value="False" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+        <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="FontFamily"
+                Value="avares://Material.Styles/Fonts/Roboto#Roboto,
+            Noto Sans TC, Noto Sans SC, Noto Sans JP, Noto Sans KR, Noto Sans, Arial" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    <DockPanel Margin="{TemplateBinding Padding}">
+                        <!--HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"-->
+                        <TextBlock Name="floatingWatermark"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   FontSize="{DynamicResource FontSizeSmall}"
+                                   Text="{TemplateBinding Watermark}"
+                                   DockPanel.Dock="Top" />
+                        <DataValidationErrors>
+                            <ScrollViewer
+                                HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                                <Panel>
+                                    <TextBlock Name="watermark"
+                                               Opacity="0.5"
+                                               Foreground="{TemplateBinding Foreground}"
+                                               Text="{TemplateBinding Watermark}"
+                                               IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+                                    <TextPresenter Name="PART_TextPresenter"
+                                                   Text="{TemplateBinding Text, Mode=TwoWay}"
+                                                   CaretIndex="{TemplateBinding CaretIndex}"
+                                                   SelectionStart="{TemplateBinding SelectionStart}"
+                                                   SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                   TextAlignment="{TemplateBinding TextAlignment}"
+                                                   TextWrapping="{TemplateBinding TextWrapping}"
+                                                   PasswordChar="{TemplateBinding PasswordChar}"
+                                                   SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                   SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                   CaretBrush="{TemplateBinding CaretBrush}" />
+                                </Panel>
+                            </ScrollViewer>
+                        </DataValidationErrors>
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="design|PropertyNameTextBlock:pointerover /template/ Border#border">
+        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}" />
+    </Style>
+    <Style Selector="design|PropertyNameTextBlock:focus /template/ Border#border" />
+    <Style Selector="design|PropertyNameTextBlock:error /template/ Border#border">
+        <Setter Property="BorderBrush" Value="{DynamicResource ValidationErrorBrush}" />
+    </Style>
+    <Style Selector="design|PropertyNameTextBlock /template/ DockPanel">
+        <Setter Property="Cursor" Value="IBeam" />
+    </Style>
+    <Style Selector="design|PropertyNameTextBlock:disabled /template/ Border#border">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <design:PropertyNameTextBlock Text="This Text" />
+        </Border>
+    </Design.PreviewWith>
+</Styles>

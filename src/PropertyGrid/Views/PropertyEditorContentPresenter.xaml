@@ -1,0 +1,25 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:design="clr-namespace:PropertyGrid.Design">
+
+    <Style Selector="design|PropertyEditorContentPresenter">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <!--<StackPanel Orientation="Horizontal">
+                    <ContentControl Template="{Binding Editor.InlineTemplate}"/>
+                    ~1~<ContentControl Template="{Binding Editor.ExtendedTemplate}"/>@1@
+                </StackPanel>-->
+                <ContentControl Template="{Binding Editor.InlineTemplate}"
+                                HorizontalAlignment="Stretch"/>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <design:PropertyNameTextBlock Text="123" />
+        </Border>
+    </Design.PreviewWith>
+
+</Styles>

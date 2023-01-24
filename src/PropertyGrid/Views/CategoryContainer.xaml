@@ -1,0 +1,49 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:PropertyGrid.Converters"
+    xmlns:design="clr-namespace:PropertyGrid.Design">
+
+    <Styles.Resources>
+        <converters:GridEntryToIsVisibleConverter x:Key="GridEntryToIsVisibleConverter" />
+        <converters:MultiBooleanToIsVisibleConverter x:Key="MultiBooleanToVisibilityConverter" />
+    </Styles.Resources>
+
+    <!-- базовые Категории / Expander -->
+    <Style Selector="design|CategoryContainer">
+        <Setter Property="IsVisible">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource MultiBooleanToVisibilityConverter}" Mode="OneWay">
+                    <Binding Path="IsBrowsable" FallbackValue="True" />
+                    <Binding Path="HasVisibleProperties" FallbackValue="True" />
+                    <Binding Path="MatchesFilter" FallbackValue="True" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <!-- Expander -->
+                    <Expander Classes="Property" Header="{Binding Name}"
+                              IsExpanded="True">
+                              <!-- IsExpanded="{Binding Entry.IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"> -->
+                        <design:CategoryEditorContentPresenter
+                            DataContext="{Binding}" />
+                    </Expander>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <design:CategoryContainer Name="123">
+                <StackPanel>
+                    <TextBlock Text="1" />
+                    <TextBlock Text="2" />
+                    <TextBlock Text="3" />
+                </StackPanel>
+            </design:CategoryContainer>
+        </Border>
+    </Design.PreviewWith>
+</Styles>

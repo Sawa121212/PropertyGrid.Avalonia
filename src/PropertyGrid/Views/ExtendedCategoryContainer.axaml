@@ -1,0 +1,41 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:PropertyGrid.Converters"
+        xmlns:design="clr-namespace:PropertyGrid.Design">
+
+    <Styles.Resources>
+        <converters:GridEntryToIsVisibleConverter x:Key="GridEntryToIsVisibleConverter" />
+        <converters:MultiBooleanToIsVisibleConverter x:Key="multiBooleanToVisibilityConverter" />
+    </Styles.Resources>
+
+    <Style Selector="design|ExtendedCategoryContainer">
+        <Setter Property="IsVisible">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource multiBooleanToVisibilityConverter}" Mode="OneWay">
+                    <Binding Path="IsBrowsable" FallbackValue="True" />
+                    <Binding Path="HasVisibleProperties" FallbackValue="True" />
+                    <Binding Path="MatchesFilter" FallbackValue="True" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Expander Classes="Property" Header="{Binding Name}"
+                              IsExpanded="{Binding Entry.IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                        <design:ExtendedCategoryEditorContainerPresenter
+                            DataContext="{Binding}" />
+                    </Expander>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <design:CategoryContainer>
+                <design:PropertyContainer/>
+            </design:CategoryContainer>
+        </Border>
+    </Design.PreviewWith>
+</Styles>

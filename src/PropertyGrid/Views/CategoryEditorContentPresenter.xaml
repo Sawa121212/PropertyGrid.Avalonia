@@ -1,0 +1,21 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:design="clr-namespace:PropertyGrid.Design">
+
+    <!-- Содержимое в Категории -->
+    <Style Selector="design|CategoryEditorContentPresenter">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <!-- Встроенный шаблон. -->
+                    <ContentControl Template="{Binding Editor.InlineTemplate}" />
+                    
+                    <!-- Расширенный шаблон -->
+                    <ContentControl Template="{Binding Editor.ExtendedTemplate}" />
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+</Styles>

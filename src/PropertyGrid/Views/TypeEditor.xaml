@@ -1,0 +1,21 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:editors="clr-namespace:PropertyGrid.Editors"
+    xmlns:design="clr-namespace:PropertyGrid.Design">
+    <Style Selector="editors|TypeEditor">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <TextBlock Text="EditedType" />
+                        <TextBlock Margin="5" Text="{TemplateBinding EditedType}" />
+                    </StackPanel>
+
+                    <design:PropertyContainer Entry="{Binding}"
+                                              Content="{TemplateBinding InlineTemplate}" />
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

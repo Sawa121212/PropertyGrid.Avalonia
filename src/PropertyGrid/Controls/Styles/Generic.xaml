@@ -1,0 +1,45 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Control -->
+    <StyleInclude Source="avares://PropertyGrid/Controls/Styles/Control/EnumDropdown.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Controls/Styles/Control/SearchTextBox.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Controls/Styles/Control/SliderEditorBase.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Controls/Styles/Control/SliderEx.xaml" />
+
+    <StyleInclude Source="avares://PropertyGrid/Controls/Styles/PropertyGrid.xaml" />
+
+    <!-- Editor -->
+    <StyleInclude Source="avares://PropertyGrid/Controls/Styles/Editor/DoubleEditor.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Controls/Styles/Editor/EditorResources.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Controls/Styles/Editor/TypeEditor.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Controls/Styles/Editor/ObservableCollectionEditor.axaml"/>
+
+    <!-- Base control Styles -->
+    <StyleInclude Source="avares://PropertyGrid/Views/BaseControlStyles/ButtonProperty.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/BaseControlStyles/ExpanderProperty.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/BaseControlStyles/TextBoxProperty.xaml" />
+    
+    <!-- Views -->
+    <StyleInclude Source="avares://PropertyGrid/Views/AlphabeticalLayout.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/CategorizedLayout.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/CategoryContainer.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/CategoryEditorContentPresenter.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/CategoryItemsLayout.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/DoubleEditor.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/ExtendedPropertyEditorTab.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/ExtendedPropertyContainer.axaml"/>
+    <StyleInclude Source="avares://PropertyGrid/Views/ExtendedPropertyItemsLayout.axaml"/>
+    <StyleInclude Source="avares://PropertyGrid/Views/PropertyContainer.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/PropertyEditorContainerPresenter.axaml"/>
+    <StyleInclude Source="avares://PropertyGrid/Views/PropertyEditorContentPresenter.xaml"/>
+    <StyleInclude Source="avares://PropertyGrid/Views/PropertyItemsLayout.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/PropertyNameTextBlock.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/ObservableCollectionEditor.axaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/SearchTextBox.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/SliderEditorBase.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/TabbedLayout.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/TabbedLayoutItem.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/TabbedLayoutItem.Base.xaml" />
+    <StyleInclude Source="avares://PropertyGrid/Views/TypeEditor.xaml" />
+</Styles>

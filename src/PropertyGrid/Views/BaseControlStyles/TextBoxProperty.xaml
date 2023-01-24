@@ -1,0 +1,173 @@
+<Styles xmlns="https://github.com/avaloniaui" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:Material.Styles.Converters;assembly=Material.Styles"
+        xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+        xmlns:extensions="clr-namespace:Material.Styles.Controls.Extensions;assembly=Material.Styles">
+
+    <Styles.Resources>
+        <converters:GetPlatformHotkeyConfigServiceConverter x:Key="GetPlatformHotkeyConfig" />
+
+        <StreamGeometry x:Key="TextBoxClearButtonData">M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z</StreamGeometry>
+        <StreamGeometry x:Key="PasswordBoxRevealButtonData">M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M12,4.5C17,4.5 21.27,7.61 23,12C21.27,16.39 17,19.5 12,19.5C7,19.5 2.73,16.39 1,12C2.73,7.61 7,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C15.76,17.5 19.17,15.36 20.82,12C19.17,8.64 15.76,6.5 12,6.5C8.24,6.5 4.83,8.64 3.18,12Z</StreamGeometry>
+        <StreamGeometry x:Key="PasswordBoxHideButtonData">M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z</StreamGeometry>
+
+        <ContextMenu x:Key="DefaultPropertyTextBoxContextMenu"
+                     Classes="Outline"
+                     Name="TextBoxContextMenu"
+                     WindowManagerAddShadowHint="False">
+
+            <MenuItem Name="TextBoxContextMenuCutItem"
+                      Header="Cut"
+                      Command="{Binding $parent[TextBox].Cut}"
+                      IsEnabled="{Binding $parent[TextBox].CanCut}"
+                      InputGesture="{Binding Converter={StaticResource GetPlatformHotkeyConfig}, ConverterParameter=cut}" />
+
+            <MenuItem Name="TextBoxContextMenuCopyItem"
+                      Header="Copy"
+                      Command="{Binding $parent[TextBox].Copy}"
+                      IsEnabled="{Binding $parent[TextBox].CanCopy}"
+                      InputGesture="{Binding Converter={StaticResource GetPlatformHotkeyConfig}, ConverterParameter=copy}" />
+
+            <MenuItem Name="TextBoxContextMenuPasteItem"
+                      Header="Paste"
+                      Command="{Binding $parent[TextBox].Paste}"
+                      IsEnabled="{Binding $parent[TextBox].CanPaste}"
+                      InputGesture="{Binding Converter={StaticResource GetPlatformHotkeyConfig}, ConverterParameter=paste}" />
+
+            <Separator />
+
+            <MenuItem Name="TextBoxContextMenuSelectAllItem"
+                      Header="Select All"
+                      Command="{Binding $parent[TextBox].SelectAll}"
+                      InputGesture="{Binding Converter={StaticResource GetPlatformHotkeyConfig}, ConverterParameter=selectall}" 
+                      Icon="{extensions:MaterialInternalIcon Kind=MaterialSelectAll}"/>
+        </ContextMenu>
+
+    </Styles.Resources>
+
+    <!--
+    <Style Selector="ContextMenu#TextBoxContextMenu controls1|MaterialInternalIcon">
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="16" />
+    </Style>-->
+
+    <!-- Standard TextBox -->
+    <Style Selector="TextBox.Property">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="ContextMenu" Value="{StaticResource DefaultPropertyTextBoxContextMenu}" />
+        <Setter Property="FontFamily"
+                Value="avares://Material.Styles/Fonts/Roboto#Roboto,
+            Noto Sans TC, Noto Sans SC, Noto Sans JP, Noto Sans KR, Noto Sans, Arial" />
+        <Setter Property="FontSize" Value="14.0" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid RowDefinitions="*, Auto">
+                    <Border Grid.Row="0"
+                            Name="PART_RootBorder" Cursor="Ibeam"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <DataValidationErrors Name="DataValidation">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <ContentPresenter Grid.Column="0" Content="{TemplateBinding InnerLeftContent}" />
+                                    <Panel Grid.Column="1" Name="PART_TextRoot">
+                                        <ScrollViewer Name="PART_Scroller"
+                                                      HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                                      VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                                            <Panel>
+                                                <!-- Текст в боксе -->
+                                                <TextPresenter Name="PART_TextPresenter"
+                                                               Margin="7,6,0,5"
+                                                               Text="{TemplateBinding Text, Mode=TwoWay}"
+                                                               TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                                                               TextBlock.FontSize="{TemplateBinding FontSize}"
+                                                               TextBlock.FontStyle="{TemplateBinding FontStyle}"
+                                                               TextBlock.FontWeight="{TemplateBinding FontWeight}"
+                                                               TextBlock.Foreground="{TemplateBinding Foreground}"
+                                                               SelectionStart="{TemplateBinding SelectionStart}"
+                                                               SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                               TextAlignment="{TemplateBinding TextAlignment}"
+                                                               TextWrapping="{TemplateBinding TextWrapping}"
+                                                               PasswordChar="{TemplateBinding PasswordChar}"
+                                                               RevealPassword="{TemplateBinding RevealPassword}"
+                                                               SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                               SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                               CaretBrush="{TemplateBinding CaretBrush}"
+                                                               CaretIndex="{TemplateBinding CaretIndex}" />
+                                            </Panel>
+                                        </ScrollViewer>
+                                    </Panel>
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                        <ContentPresenter Content="{TemplateBinding InnerRightContent}" />
+                                        <Border Name="PART_AssistButtonsContainer" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataValidationErrors>
+                        </Grid>
+                    </Border>
+                    <TextBlock Grid.Row="1" Name="HintsTextBlock" Classes="Caption" Margin="0,3,0,0"
+                               Text="{TemplateBinding (assists:TextFieldAssist.Hints)}"
+                               TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <!-- Feedbacks -->
+    <Style Selector="TextBox.Property:disabled /template/ Border#PART_RootBorder">
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+
+    <Style Selector="TextBox.Property[IsReadOnly=True]">
+        <Setter Property="IsEnabled" Value="False" />
+    </Style>
+
+    <Style Selector="TextBox.Property:pointerover /template/ Border#PART_RootBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueLightBrush}" />
+    </Style>
+
+    <Style Selector="TextBox.Property:focus /template/ Border#PART_RootBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+    </Style>
+
+    <!-- Default TextBox style -->
+    <Style Selector="TextBox.Property /template/ Panel#PART_TextRoot">
+        <Setter Property="Margin" Value="1, 0" />
+    </Style>
+
+    <Style Selector="TextBox.Property /template/ #PART_Scroller /template/ ScrollBar.Modern /template/ Grid#rootGrid">
+        <Setter Property="Margin" Value="0 8 0 4" />
+    </Style>
+
+
+    <!-- Invalid state -->
+    <Style Selector="TextBox.Property:error /template/ Border#PART_RootBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource ValidationErrorBrush}" />
+    </Style>
+
+    <Style Selector="TextBox.Property:error /template/ TextBlock#HintsTextBlock">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+
+    <!-- ReSharper restore InconsistentNaming -->
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel>
+                <TextBox Classes="Property" Text="tetxtxthbhbhlnkjnl" />
+                <TextBox Classes="Property" Text="tetxtxt IsReadOnly sdl" IsReadOnly="True" />
+                <TextBox Classes="Property" Width="200" />
+                <TextBox Classes="Property" Width="200" UseFloatingWatermark="True" Watermark="Filled TextBox" />
+                <TextBox Classes="Property" UseFloatingWatermark="True" Width="200"
+                         assists:TextFieldAssist.Label="Filled TextBox" />
+                <TextBox Classes="Property" UseFloatingWatermark="True" Width="200"
+                         Text="Text 123"
+                         assists:TextFieldAssist.Label="Filled TextBox" />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+</Styles>
