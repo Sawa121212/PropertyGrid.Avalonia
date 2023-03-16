@@ -1,4 +1,4 @@
 # PropertyGrid.Avalonia
 
-unfinished project
+unfinished project.
 any help is welcome
